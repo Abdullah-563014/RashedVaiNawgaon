@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:id="@+id/customImageView"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/appbar_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="#FFFFFF"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/customImageView"
+        android:layout_toLeftOf="@+id/rightCustomImageView"
+        android:text="Thanks For using\nRashed's 3rd Eye Bike Security"
+        android:textSize="16sp"
+        android:layout_toEndOf="@+id/customImageView"
+        android:layout_toStartOf="@+id/rightCustomImageView" />
+
+
+    <ImageView
+        android:layout_width="50dp"
+        android:id="@+id/rightCustomImageView"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        app:srcCompat="@drawable/right_bike_image"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

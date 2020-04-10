@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/welcome_activity_background"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity">
+
+    <ImageView
+        android:id="@+id/welcomeImageViewId"
+        android:layout_width="150dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/right_bike_image"
+        android:layout_height="150dp" />
+    <TextView
+        android:id="@+id/welcomeTextViewId"
+        android:layout_width="match_parent"
+        android:text="Welcome"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:shadowDy="2"
+        android:shadowDx="2"
+        android:shadowColor="#000000"
+        android:textColor="#673AB7"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/welcomeAppNameTextViewId"
+        android:layout_width="match_parent"
+        android:text="RASHED\'S Gps Bike Security"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#673AB7"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
