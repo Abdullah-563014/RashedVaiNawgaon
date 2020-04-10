@@ -45,23 +45,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sendEasySmsButton,
             sendOnSmsButton,
             sendOffSmsButton,
+            sendVibrationSensorOffSmsButton,
+            sendVibrationSensorOnSmsButton;
 //            sendStartSmsButton,
-            sendCarOffSmsButton,
-            sendCarOnSmsButton;
+//            sendCarOffSmsButton,
+//            sendCarOnSmsButton;
 //            lockCallButton,
 //            unlockCallButton;
     Button voiceCommandButon,liveTrackButton;
     Intent intent;
     public static String phoneNumber = null;
-    String findTextMessage = "6690000";
-    String statusTextMessage = "RCONF";
-    String alertTextMessage = "8880000";
-    String easyTextMessage = "8890000";
-    String onTextMessage = "9400000";
-    String offTextMessage = "9410000";
+    String findTextMessage = "Find";
+    String statusTextMessage = "Status";
+    String alertTextMessage = "Accon";
+    String easyTextMessage = "Accoff";
+    String onTextMessage = "On";
+    String offTextMessage = "Off";
+    String vibrationSensorOffTextMessage = "Easy";
+    String vibrationSensorOnTextMessage = "Alert";
 //    String startTextMessage = "Start";
-    String carOffTextMessage = "9400000";
-    String carOnTextMessage = "9410000";
+//    String carOffTextMessage = "9400000";
+//    String carOnTextMessage = "9410000";
     SharedPreferences sharedPreferences, phoneNumberValueSharedPreference;
     PendingIntent sentPI, deliveredPI;
     BroadcastReceiver sentBroadcastReceiver, deliveredBroadcastReceiver;
@@ -80,11 +84,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         LayoutInflater inflater=getLayoutInflater();
         View view= (View) inflater.inflate(R.layout.appbar_custom_view,null);
-        getSupportActionBar().setCustomView(view);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().setCustomView(view);
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
 
+        initAll();
+
+        checkAllPermission();
+
+        retrieveDevicePhoneNumberFromStorage();
+
+        initTextToSpeech();
+
+        updateLastButtonStatus();
+//-----------------------onCreate method end-------------------------------
+    }
+
+
+    private void initAll(){
         setPhoneNumberButton = findViewById(R.id.deviceNumberButtonId);
         sendFindSmsButton = findViewById(R.id.findSmsButtonId);
         sendStatusSmsButton = findViewById(R.id.statusSmsButtonId);
@@ -93,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendOnSmsButton = findViewById(R.id.onSmsButtonId);
         sendOffSmsButton = findViewById(R.id.offSmsButtonId);
 //        sendStartSmsButton = findViewById(R.id.startSmsButtonId);
-        sendCarOffSmsButton = findViewById(R.id.carOffSmsButtonId);
-        sendCarOnSmsButton = findViewById(R.id.carOnSmsButtonId);
+        sendVibrationSensorOffSmsButton = findViewById(R.id.vibSendorOffSmsButtonId);
+        sendVibrationSensorOnSmsButton = findViewById(R.id.vibSensorOnSmsButtonId);
 //        lockCallButton = findViewById(R.id.lockCallButtonId);
 //        unlockCallButton = findViewById(R.id.unLockCallButtonId);
         showPhoneNumberTextView = findViewById(R.id.showPhoneNumberTextViewId);
@@ -112,40 +132,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendOnSmsButton.setOnClickListener(this);
         sendOffSmsButton.setOnClickListener(this);
 //        sendStartSmsButton.setOnClickListener(this);
-        sendCarOffSmsButton.setOnClickListener(this);
-        sendCarOnSmsButton.setOnClickListener(this);
+        sendVibrationSensorOffSmsButton.setOnClickListener(this);
+        sendVibrationSensorOnSmsButton.setOnClickListener(this);
 //        lockCallButton.setOnClickListener(this);
 //        unlockCallButton.setOnClickListener(this);
         voiceCommandButon.setOnClickListener(this);
         contactCall.setOnClickListener(this);
         contactFacebook.setOnClickListener(this);
         liveTrackButton.setOnClickListener(this);
+    }
 
-
-        int PERMISSION_ALL = 1;
-        String[] permissions = {Manifest.permission.CALL_PHONE,
-                Manifest.permission.SEND_SMS,
-                Manifest.permission.READ_SMS,
-                Manifest.permission.RECEIVE_SMS,
-                Manifest.permission.INTERNET,
-                Manifest.permission.VIBRATE,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION};
-        if (!hasPermission(this, permissions)) {
-            ActivityCompat.requestPermissions(this, permissions, PERMISSION_ALL);
-        }
-
-
-        sharedPreferences = getSharedPreferences("phone", MODE_PRIVATE);
-        String phone = sharedPreferences.getString("phone", null);
-        if (phone != null) {
-            phoneNumber = phone;
-            String subNumb=phoneNumber.substring(phoneNumber.length()-2,phoneNumber.length());
-            showPhoneNumberTextView.setText("Last Two Digit Of Number:- "+subNumb);
-        }
-
-
-
+    private void initTextToSpeech(){
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -162,11 +159,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-
-        updateLastButtonStatus();
-//-----------------------onCreate method end-------------------------------
     }
 
+    private void retrieveDevicePhoneNumberFromStorage(){
+        sharedPreferences = getSharedPreferences("phone", MODE_PRIVATE);
+        String phone = sharedPreferences.getString("phone", null);
+        if (phone != null) {
+            phoneNumber = phone;
+            String subNumb=phoneNumber.substring(phoneNumber.length()-2,phoneNumber.length());
+            showPhoneNumberTextView.setText("Last Two Digit Of Number:- "+subNumb);
+        }
+    }
+
+    private void checkAllPermission(){
+        int PERMISSION_ALL = 1;
+        String[] permissions = {Manifest.permission.CALL_PHONE,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.READ_SMS,
+                Manifest.permission.RECEIVE_SMS,
+                Manifest.permission.INTERNET,
+                Manifest.permission.VIBRATE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION};
+        if (!hasPermission(this, permissions)) {
+            ActivityCompat.requestPermissions(this, permissions, PERMISSION_ALL);
+        }
+    }
 
     @Override
     public void onClick(View view) {
@@ -219,12 +237,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                sendSms(startTextMessage,"startSmsButtonId","bike start");
 //                break;
 
-            case R.id.carOffSmsButtonId:
-                sendSms(carOffTextMessage,"carOffSmsButtonId","car off");
+            case R.id.vibSendorOffSmsButtonId:
+                sendSms(vibrationSensorOffTextMessage,"vibSendorOffSmsButtonId","vibration sensor off");
                 break;
 
-            case R.id.carOnSmsButtonId:
-                sendSms(carOnTextMessage,"carOnSmsButtonId","car on");
+            case R.id.vibSensorOnSmsButtonId:
+                sendSms(vibrationSensorOnTextMessage,"vibSensorOnSmsButtonId","vibration sensor on");
                 break;
 
 //            case R.id.lockCallButtonId:
@@ -262,7 +280,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 //----------------------onClick method end---------------------------------
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -325,13 +342,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    }
 
 
-                    else if (value.contains("car unlock")) {
-                        voiceCommand(carOnTextMessage,"ok, trying to unlock your car","carOnSmsButtonId");
+                    else if (value.contains("vibration on")) {
+                        voiceCommand(vibrationSensorOnTextMessage,"ok, trying to turn on vibration sensor","vibSensorOnSmsButtonId");
                     }
 
 
-                    else if (value.contains("car lock")) {
-                        voiceCommand(carOffTextMessage,"ok, trying to lock your car","carOffSmsButtonId");
+                    else if (value.contains("vibration off")) {
+                        voiceCommand(vibrationSensorOffTextMessage,"ok, trying to turn off vibration sensor","vibSendorOffSmsButtonId");
                     }
                     else {
                         voiceCommand(null,"your command is incorrect, please try again",null);
@@ -343,10 +360,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     private void voiceCommand(String smsCommand, String voiceCommand,String buttonId){
         if (smsCommand!=null && !smsCommand.isEmpty()){
-            if (voiceSendSms == true) {
+            if (voiceSendSms) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     textToSpeech.speak(voiceCommand, TextToSpeech.QUEUE_FLUSH, null, null);
                 } else {
@@ -356,13 +372,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (!TextUtils.isEmpty(phoneNumber)){
                         double num = Double.parseDouble(phoneNumber);
                     }else {
-                        Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Please set your device phone number", Toast.LENGTH_SHORT).show();
                     }
                     if (buttonId!=null && !buttonId.isEmpty()){
                         sendSmsFromVoiceCommand(smsCommand,buttonId);
                     }
                 } catch (NumberFormatException e) {
-                    Toast.makeText(this, "Phone number not valid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Device's phone number not valid", Toast.LENGTH_SHORT).show();
                 }
                 voiceSendSms = false;
             }
@@ -378,7 +394,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
 
     public void makeCall(String number, String symbole,String speechText){
         vibrateCreation();
@@ -413,6 +428,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
     private void callHandler(String number,String symbole){
         if (symbole!=null && !symbole.isEmpty()){
             String callNumber = number + symbole;
@@ -425,8 +441,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
     }
-
-
 
     public void sendSms(String smsCommand,String buttonId,String speechText){
         vibrateCreation();
@@ -466,7 +480,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     public void sendSmsFromVoiceCommand(String smsCommand,String buttonId){
         vibrateCreation();
         lastButtonId = buttonId;
@@ -476,7 +489,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (phoneNumber != null) {
                 double num = Double.parseDouble(phoneNumber);
             } else {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please set your device phone number", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (Build.VERSION.SDK_INT > 22) {
@@ -496,7 +509,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sendMessageHandle(smsCommand);
             }
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please set your device phone number", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -509,7 +522,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void openUrl(String url){
         vibrateCreation();
@@ -550,8 +562,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sendOnSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
             sendOffSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
 //            sendStartSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
-            sendCarOffSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
-            sendCarOnSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
+            sendVibrationSensorOnSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
+            sendVibrationSensorOffSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
 //            lockCallButton.setBackgroundResource(R.drawable.green_and_white_border_button);
 //            unlockCallButton.setBackgroundResource(R.drawable.green_and_white_border_button);
             button.setBackgroundResource(R.drawable.red_and_black_border_button);
@@ -567,7 +579,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.apply();
         }
     }
-
 
     public void messageHandleMethod() {
         String SENT = "SMS_SENT";
@@ -628,12 +639,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         registerReceiver(deliveredBroadcastReceiver, new IntentFilter(DELIVERED));
     }
 
-
     public void vibrateCreation() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
     }
-
 
     public static boolean hasPermission(Context context, String... permissions) {
 
@@ -646,7 +655,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
     }
-
 
     @Override
     public void onBackPressed() {
