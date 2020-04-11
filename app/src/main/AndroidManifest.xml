@@ -19,28 +19,28 @@
         android:roundIcon="@drawable/bike_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.rashed.md.gpssecurity.SmsShowActivity"></activity>
-        <activity android:name="com.rashed.md.gpssecurity.WelcomeActivity">
+        <activity android:name=".SmsShowActivity"/>
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rashed.md.gpssecurity.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rashed.md.gpssecurity.InputPhoneNumberActivity" />
+        <activity android:name=".InputPhoneNumberActivity" />
 
-        <receiver android:name="com.rashed.md.gpssecurity.SmsReceiverClass">
+        <receiver android:name=".SmsReceiverClass">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.rashed.md.gpssecurity.GoogleMapViewClass" />
+        <activity android:name=".GoogleMapViewClass" />
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_volume_up_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_build_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_vib_sensor_off" />
-                            <entry key="sourceFile" value="D:\Downloads\call_mode_off.svg" />
+                            <entry key="outputName" value="ic_setting" />
+                            <entry key="sourceFile" value="D:\Downloads\vibration (2).svg" />
                           </map>
                         </option>
                       </PersistentState>

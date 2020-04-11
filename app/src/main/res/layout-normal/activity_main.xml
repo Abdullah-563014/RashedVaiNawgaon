@@ -168,26 +168,26 @@
                         android:background="@drawable/green_and_white_border_button"
                         android:textColor="@color/buttonTextColor"
                         android:layout_height="100dp"
-                        android:src="@drawable/ic_vib_sensor_off"
+                        android:src="@drawable/ic_phone_vibration_off"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:textSize="10sp"
                         android:layout_gravity="center_vertical"
-                        android:text="Car Lock" />
+                        android:text="Vibration off" />
 
                     <ImageButton
                         android:id="@+id/vibSensorOnSmsButtonId"
                         android:layout_width="100dp"
                         android:layout_margin="5dp"
                         android:textSize="10sp"
-                        android:src="@drawable/ic_car_unlock"
+                        android:src="@drawable/ic_phone_vibration_on"
                         android:background="@drawable/green_and_white_border_button"
                         android:textColor="@color/buttonTextColor"
                         android:layout_height="100dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:layout_gravity="center_vertical"
-                        android:text="Car Unlock" />
+                        android:text="Vibration on" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -290,7 +290,7 @@
                     android:textStyle="bold"
                     android:id="@+id/deviceNumberButtonId"
                     android:layout_height="wrap_content"
-                    android:text="Save Your Number"/>
+                    android:text="Save Your Device Number"/>
                 <Button
                     android:layout_width="0dp"
                     android:layout_weight="1"

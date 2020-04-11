@@ -18,17 +18,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter your phone number below"/>
+            android:text="Enter your device phone number below"/>
         <EditText
             android:layout_width="match_parent"
-            android:hint="Enter your number"
+            android:hint="Enter your device number"
             android:inputType="phone"
             android:id="@+id/editTextPhoneNumber"
             android:layout_height="50dp" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save Your Number"
+            android:text="Save Your Device Number"
             android:id="@+id/okButtonPhoneNumber"/>
     </LinearLayout>
 </LinearLayout>

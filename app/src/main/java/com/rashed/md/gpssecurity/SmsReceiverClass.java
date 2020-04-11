@@ -29,7 +29,7 @@ public class SmsReceiverClass extends BroadcastReceiver {
             String phoneNumber=MainActivity.phoneNumber;
             phoneNumberWithCountryCode="+88"+phoneNumber;
             if (phoneNumberWithCountryCode.contains(smsServerAdress)){
-                if (smsBodyFromServer.contains("http://maps.google.com")){
+                if (smsBodyFromServer.contains("http://www.google.com/maps")){
                     Intent intentForGoogleMap=new Intent(context,GoogleMapViewClass.class);
                     intentForGoogleMap.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intentForGoogleMap.putExtra("message",smsBodyFromServer);

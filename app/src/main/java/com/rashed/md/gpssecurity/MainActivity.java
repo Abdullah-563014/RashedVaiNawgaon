@@ -258,11 +258,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.facebookButtonId:
-                openUrl("https://www.facebook.com/naogaon.tinyscientist");
+                openUrl("https://www.facebook.com/rashedul.bari.7");
                 break;
 
             case R.id.openWebsiteButtonId:
-                openUrl("http://www.sinotracking.com/app/Login.html");
+                openUrl("http://yq.18gps.net/Skins/YiXinNuo/?locale=en&back=true");
                 break;
 
             case R.id.voiceCommandButtonId:

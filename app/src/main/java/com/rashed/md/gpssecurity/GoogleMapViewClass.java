@@ -3,6 +3,7 @@ package com.rashed.md.gpssecurity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,18 +26,15 @@ public class GoogleMapViewClass extends AppCompatActivity {
         if (bundle != null) {
             try {
                 url = bundle.getString("message");
-//                latAndLon = url.substring(34).trim();
-                String[] strings=url.split("Date");
-                latAndLon=strings[0].trim();
-//                String[] latAndLongValue=latAndLon.split(",");
-//                latituate=latAndLongValue[0];
-//                longituate=latAndLongValue[1];
+                String temporaryLatAndLang=url.split(" ")[0];
+                latAndLon=temporaryLatAndLang.trim();
             } catch (Exception e) {
                 Toast.makeText(this, "Url not found", Toast.LENGTH_SHORT).show();
             }
 
 
         }
+
 
 
         try {
