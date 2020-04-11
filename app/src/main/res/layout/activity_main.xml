@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainActivityRootLayoutId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#723F51B5"
+    android:background="@drawable/animated_background"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -23,7 +24,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F23F51B5"
                 android:paddingTop="5dp"
                 android:orientation="vertical">
                 <TextView
@@ -189,6 +189,21 @@
                         android:layout_gravity="center_vertical"
                         android:text="Vibration on" />
 
+                    <ImageButton
+                        android:id="@+id/settingsButtonId"
+                        android:layout_width="100dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/green_and_white_border_button"
+                        android:textColor="@color/buttonTextColor"
+                        android:layout_height="100dp"
+                        android:src="@drawable/ic_setting"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:textSize="10sp"
+                        android:layout_gravity="center_vertical"
+                        android:text="Settings" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -200,7 +215,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F23F51B5"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:layout_marginTop="10dp"

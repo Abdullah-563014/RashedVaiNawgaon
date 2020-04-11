@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="buttonTextColor">#000000</color>
+    <color name="colorGradientStart">#008577</color>
+    <color name="colorGradientCenter">#FF9800</color>
+    <color name="colorGradientEnd">#3F51B5</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <!--    <color name="colorLayoutBackground">#F23F51B5</color>-->
 </resources>

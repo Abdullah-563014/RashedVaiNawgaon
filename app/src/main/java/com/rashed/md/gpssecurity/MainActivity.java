@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
@@ -22,8 +24,10 @@ import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sendOnSmsButton,
             sendOffSmsButton,
             sendVibrationSensorOffSmsButton,
-            sendVibrationSensorOnSmsButton;
+            sendVibrationSensorOnSmsButton,
+            settingsButton;
 //            sendStartSmsButton,
 //            sendCarOffSmsButton,
 //            sendCarOnSmsButton;
@@ -74,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String lastButtonId;
     TextToSpeech textToSpeech;
     boolean voiceSendSms=false;
+    private LinearLayout rootLayout;
 
 
     @Override
@@ -100,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initTextToSpeech();
 
         updateLastButtonStatus();
+
+        startBackgroundAnimation();
+
+
 //-----------------------onCreate method end-------------------------------
     }
 
@@ -112,16 +122,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendEasySmsButton = findViewById(R.id.easySmsButtonId);
         sendOnSmsButton = findViewById(R.id.onSmsButtonId);
         sendOffSmsButton = findViewById(R.id.offSmsButtonId);
-//        sendStartSmsButton = findViewById(R.id.startSmsButtonId);
         sendVibrationSensorOffSmsButton = findViewById(R.id.vibSendorOffSmsButtonId);
         sendVibrationSensorOnSmsButton = findViewById(R.id.vibSensorOnSmsButtonId);
-//        lockCallButton = findViewById(R.id.lockCallButtonId);
-//        unlockCallButton = findViewById(R.id.unLockCallButtonId);
+        settingsButton=findViewById(R.id.settingsButtonId);
         showPhoneNumberTextView = findViewById(R.id.showPhoneNumberTextViewId);
         contactCall = findViewById(R.id.contactUsButtonId);
         contactFacebook = findViewById(R.id.facebookButtonId);
         voiceCommandButon=findViewById(R.id.voiceCommandButtonId);
         liveTrackButton=findViewById(R.id.openWebsiteButtonId);
+        rootLayout=findViewById(R.id.mainActivityRootLayoutId);
 
 
         setPhoneNumberButton.setOnClickListener(this);
@@ -131,15 +140,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendEasySmsButton.setOnClickListener(this);
         sendOnSmsButton.setOnClickListener(this);
         sendOffSmsButton.setOnClickListener(this);
-//        sendStartSmsButton.setOnClickListener(this);
         sendVibrationSensorOffSmsButton.setOnClickListener(this);
         sendVibrationSensorOnSmsButton.setOnClickListener(this);
-//        lockCallButton.setOnClickListener(this);
-//        unlockCallButton.setOnClickListener(this);
+        settingsButton.setOnClickListener(this);
         voiceCommandButon.setOnClickListener(this);
         contactCall.setOnClickListener(this);
         contactFacebook.setOnClickListener(this);
         liveTrackButton.setOnClickListener(this);
+    }
+
+    private void startBackgroundAnimation(){
+        AnimationDrawable animationDrawable = (AnimationDrawable) rootLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(1500);
+        animationDrawable.setExitFadeDuration(3500);
+        animationDrawable.start();
     }
 
     private void initTextToSpeech(){
@@ -243,6 +257,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.vibSensorOnSmsButtonId:
                 sendSms(vibrationSensorOnTextMessage,"vibSensorOnSmsButtonId","vibration sensor on");
+                break;
+
+            case R.id.settingsButtonId:
+                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
                 break;
 
 //            case R.id.lockCallButtonId:
