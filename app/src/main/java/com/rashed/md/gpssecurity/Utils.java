@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 public class Utils {
 
     private static String preferenceName="BikeSecurityApplication";
+    public static String devicePhoneNumber;
 
     public static void setStringToStorage(Context context, String key, String value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);

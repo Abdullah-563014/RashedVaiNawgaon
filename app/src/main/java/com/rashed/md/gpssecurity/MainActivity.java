@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String phone = sharedPreferences.getString("phone", null);
         if (phone != null) {
             phoneNumber = phone;
+            Utils.devicePhoneNumber=phone;
             String subNumb=phoneNumber.substring(phoneNumber.length()-2,phoneNumber.length());
             showPhoneNumberTextView.setText("Last Two Digit Of Number:- "+subNumb);
         }
@@ -260,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.settingsButtonId:
+                vibrateCreation();
                 startActivity(new Intent(MainActivity.this,SettingsActivity.class));
                 break;
 
@@ -474,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (phoneNumber != null) {
                 double num = Double.parseDouble(phoneNumber);
             } else {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please set your device phone number", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (Build.VERSION.SDK_INT > 22) {
@@ -494,7 +496,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sendMessageHandle(smsCommand);
             }
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please set your device phone number", Toast.LENGTH_SHORT).show();
         }
     }
 

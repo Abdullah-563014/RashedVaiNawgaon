@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingsActivityRootLayoutId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome_activity_background"
+    android:background="@drawable/animated_background"
     android:orientation="vertical"
     tools:context=".SettingsActivity">
     <include
@@ -20,35 +21,93 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/settingsActivitySetSpeedAlarmEditTextId"
-                android:hint="Input your target speed"
-                android:inputType="number"
-                android:paddingStart="10dp"
-                android:background="@drawable/edit_text_background"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorWhite"
-                android:layout_marginBottom="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingLeft="10dp" />
             <Button
-                android:id="@+id/settingsActivitySetSpeedAlarmButtonId"
-                android:text="Set Alarm Speed"
+                android:id="@+id/settingActivitySetSpeedAlarmButtonId"
+                android:text="Set Speed Alarm"
                 android:textAllCaps="false"
                 android:background="@drawable/button_background"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/settingActivityApnSettingButtonId"
+                android:text="APN Setting"
+                android:textAllCaps="false"
+                android:background="@drawable/button_background"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/settingActivityMoveAlarmButtonId"
+                android:text="Set Move Alarm"
+                android:textAllCaps="false"
+                android:background="@drawable/button_background"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/settingActivityPowerCutAlarmOnButtonId"
+                    android:text="Power Cut Alarm On"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_background"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/settingActivityPowerCutAlarmOffButtonId"
+                    android:text="Power Cut Alarm Off"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_background"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
             <TextView
-                android:id="@+id/settingsActivityCurrentSpeedTextViewId"
-                android:text="Current Alarm Speed Is:- "
+                android:id="@+id/settingsActivityPowerCutAlarmStatusTextViewId"
+                android:text="Current Power Cut Status"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:textColor="@color/colorWhite"
                 android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/settingActivitySaveExtraAdminButtonId"
+                android:text="Save Extra Admin"
+                android:textAllCaps="false"
+                android:background="@drawable/button_background"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/settingActivityDeviceFormatButtonId"
+                android:text="Format Your Device"
+                android:textAllCaps="false"
+                android:background="@drawable/button_background"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
