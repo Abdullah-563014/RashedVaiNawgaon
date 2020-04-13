@@ -101,6 +101,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <Button
+                android:id="@+id/settingActivityRemoveExtraAdminButtonId"
+                android:text="Remove Extra Admin"
+                android:textAllCaps="false"
+                android:background="@drawable/button_background"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <Button
                 android:id="@+id/settingActivityDeviceFormatButtonId"
                 android:text="Format Your Device"
                 android:textAllCaps="false"

@@ -35,7 +35,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private EditText alertDialogSpeedEditText,
             alertDialogApnNameEditText,
             alertDialogMoveAlarmEditText,
-            alertDialogExtraAdminEditText;
+            alertDialogExtraAdminEditText,
+            alertDialogRemoveExtraAdminEditText;
     private Button alertDialogSetSpeedButton,
             setSpeedAlarmButton,
             apnSettingButton,
@@ -43,20 +44,24 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             powerCutAlarmOnButton,
             powerCutAlarmOffButton,
             setExtraAdminButton,
+            removeExtraAdminButton,
             formatDeviceButton,
             alertDialogSetApnNameButton,
             alertDialogMoveAlarmButton,
-            alertDialogExtraAdminButton;
+            alertDialogExtraAdminButton,
+            alertDialogRemoveExtraAdminButton;
     private TextView alertDialogCurrentSpeedTextView,
             powerCutStatusTextView,
             alertDialogApnStatusTextView,
             alertDialogMoveAlarmTextView,
-            alertDialogExtraAdminTextView;
+            alertDialogExtraAdminTextView,
+            alertDialogRemoveExtraAdminStatusTextView;
     private String alertDialogInputSpeed,
             dialogType,
             alertDialogInputApnName,
             alertDialogMoveAlarmInputSpeed,
-            alertDialogExtraAdminInputValue;
+            alertDialogExtraAdminInputValue,
+            alertDialogRemoveExtraAdminInputValue;
     private Toolbar toolbar;
     private AlertDialog alertDialog;
     private LinearLayout rootLayout;
@@ -84,12 +89,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         initTextToSpeech();
 
+        getPowerCutStatusFromStorage();
+
     }
 
-    private void showCurrentSpeedToTextView() {
-        String currentSpeed=Utils.getStringFromStorage(getApplicationContext(),"CurrentAlarmedSpeed");
-        alertDialogCurrentSpeedTextView.setText("Current alarm speed:- "+currentSpeed+" Km/h");
-    }
 
     private void initAll() {
         setSpeedAlarmButton=findViewById(R.id.settingActivitySetSpeedAlarmButtonId);
@@ -100,6 +103,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         setExtraAdminButton=findViewById(R.id.settingActivitySaveExtraAdminButtonId);
         formatDeviceButton=findViewById(R.id.settingActivityDeviceFormatButtonId);
         powerCutStatusTextView=findViewById(R.id.settingsActivityPowerCutAlarmStatusTextViewId);
+        removeExtraAdminButton=findViewById(R.id.settingActivityRemoveExtraAdminButtonId);
         rootLayout=findViewById(R.id.settingsActivityRootLayoutId);
 
         setSpeedAlarmButton.setOnClickListener(this);
@@ -109,6 +113,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         powerCutAlarmOffButton.setOnClickListener(this);
         setExtraAdminButton.setOnClickListener(this);
         formatDeviceButton.setOnClickListener(this);
+        removeExtraAdminButton.setOnClickListener(this);
+    }
+
+    private void getPowerCutStatusFromStorage(){
+        String powerCutStatus=Utils.getStringFromStorage(getApplicationContext(),"PowerCutAlarmOn");
+        if (powerCutStatus==null){
+            powerCutStatus="off";
+        }
+        powerCutStatusTextView.setText("Current power cut status is:- "+powerCutStatus);
     }
 
     private void startBackgroundAnimation(){
@@ -211,14 +224,18 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 alertDialogSetSpeedButton=view.findViewById(R.id.alertDialogSetSpeedAlarmButtonId);
                 alertDialogSpeedEditText=view.findViewById(R.id.alertDialogSetSpeedAlarmEditTextId);
                 alertDialogCurrentSpeedTextView=view.findViewById(R.id.alertDialogCurrentSpeedTextViewId);
+                String currentSpeed=Utils.getStringFromStorage(getApplicationContext(),"CurrentAlarmedSpeed");
+                alertDialogCurrentSpeedTextView.setText("Current speed alarm:- "+currentSpeed+" Km/h");
                 alertDialogSetSpeedButton.setOnClickListener(this);
                 break;
 
             case "ApnName":
                 view=getLayoutInflater().inflate(R.layout.custom_layout_for_apn_setting,null,false);
                 alertDialogSetApnNameButton=view.findViewById(R.id.alertDialogSetApnNameButtonId);
-                alertDialogApnNameEditText=view.findViewById(R.id.alertDialogSetSpeedAlarmEditTextId);
-                alertDialogApnStatusTextView=view.findViewById(R.id.alertDialogCurrentSpeedTextViewId);
+                alertDialogApnNameEditText=view.findViewById(R.id.alertDialogSetApnNameEditTextId);
+                alertDialogApnStatusTextView=view.findViewById(R.id.alertDialogCurrentApnNameTextViewId);
+                String oldApnName=Utils.getStringFromStorage(getApplicationContext(),"CurrentApnName");
+                alertDialogApnStatusTextView.setText("Current APN name:- "+oldApnName);
                 alertDialogSetApnNameButton.setOnClickListener(this);
                 break;
 
@@ -227,6 +244,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 alertDialogMoveAlarmButton=view.findViewById(R.id.alertDialogSetMoveAlarmButtonId);
                 alertDialogMoveAlarmEditText=view.findViewById(R.id.alertDialogSetMoveAlarmEditTextId);
                 alertDialogMoveAlarmTextView=view.findViewById(R.id.alertDialogMoveAlarmTextViewId);
+                String oldMoveAlarm=Utils.getStringFromStorage(getApplicationContext(),"CurrentMoveAlarm");
+                alertDialogMoveAlarmTextView.setText("Current Move Speed Alarm:- "+oldMoveAlarm);
                 alertDialogMoveAlarmButton.setOnClickListener(this);
                 break;
 
@@ -235,7 +254,19 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 alertDialogExtraAdminButton=view.findViewById(R.id.alertDialogSetExtraAdminButtonId);
                 alertDialogExtraAdminEditText=view.findViewById(R.id.alertDialogSetExtraAdminEditTextId);
                 alertDialogExtraAdminTextView=view.findViewById(R.id.alertDialogExtraAdminTextViewId);
+                String oldExtraAdmin=Utils.getStringFromStorage(getApplicationContext(),"CurrentSetExtraAdmin");
+                alertDialogExtraAdminTextView.setText("Current Extra Admin:- "+oldExtraAdmin);
                 alertDialogExtraAdminButton.setOnClickListener(this);
+                break;
+
+            case "RemoveExtraAdmin":
+                view=getLayoutInflater().inflate(R.layout.custom_layout_for_remove_extra_admin,null,false);
+                alertDialogRemoveExtraAdminButton=view.findViewById(R.id.alertDialogRemoveExtraAdminButtonId);
+                alertDialogRemoveExtraAdminEditText=view.findViewById(R.id.alertDialogRemoveExtraAdminEditTextId);
+                alertDialogRemoveExtraAdminStatusTextView=view.findViewById(R.id.alertDialogRemoveExtraAdminTextViewId);
+                String existedAdmin=Utils.getStringFromStorage(getApplicationContext(),"CurrentSetExtraAdmin");
+                alertDialogRemoveExtraAdminStatusTextView.setText("Current Extra Admin:- "+existedAdmin);
+                alertDialogRemoveExtraAdminButton.setOnClickListener(this);
                 break;
         }
         AlertDialog.Builder builder=new AlertDialog.Builder(SettingsActivity.this);
@@ -289,7 +320,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 vibrateCreation();
                 dialogType="SpeedAlarm";
                 showAlertDialog();
-                showCurrentSpeedToTextView();
                 break;
 
             case R.id.alertDialogSetSpeedAlarmButtonId:
@@ -360,13 +390,31 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.alertDialogSetExtraAdminButtonId:
                 vibrateCreation();
-                alertDialogMoveAlarmInputSpeed=alertDialogMoveAlarmEditText.getText().toString();
-                if (!TextUtils.isEmpty(alertDialogMoveAlarmInputSpeed)){
-                    sendSms("move123456 "+alertDialogMoveAlarmInputSpeed);
+                alertDialogExtraAdminInputValue=alertDialogExtraAdminEditText.getText().toString();
+                if (!TextUtils.isEmpty(alertDialogExtraAdminInputValue)){
+                    sendSms("admin123456 "+alertDialogExtraAdminInputValue);
                     alertDialog.dismiss();
                 }else {
-                    alertDialogMoveAlarmEditText.setError("Please input valid move speed.");
-                    alertDialogMoveAlarmEditText.setFocusable(true);
+                    alertDialogExtraAdminEditText.setError("Please input admin's valid phone number.");
+                    alertDialogExtraAdminEditText.setFocusable(true);
+                }
+                break;
+
+            case R.id.settingActivityRemoveExtraAdminButtonId:
+                vibrateCreation();
+                dialogType="RemoveExtraAdmin";
+                showAlertDialog();
+                break;
+
+            case R.id.alertDialogRemoveExtraAdminButtonId:
+                vibrateCreation();
+                alertDialogRemoveExtraAdminInputValue=alertDialogRemoveExtraAdminEditText.getText().toString();
+                if (!TextUtils.isEmpty(alertDialogRemoveExtraAdminInputValue)){
+                    sendSms("noadmin123456 "+alertDialogRemoveExtraAdminInputValue);
+                    alertDialog.dismiss();
+                }else {
+                    alertDialogRemoveExtraAdminEditText.setError("Please input admin's valid phone number.");
+                    alertDialogRemoveExtraAdminEditText.setFocusable(true);
                 }
                 break;
 
@@ -397,6 +445,42 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             case "SpeedAlarm":
                 voiceCommand("Setting activated successfully");
                 Utils.setStringToStorage(getApplicationContext(),"CurrentAlarmedSpeed",alertDialogInputSpeed);
+                break;
+
+            case "ApnName":
+                voiceCommand("Setting activated successfully");
+                Utils.setStringToStorage(getApplicationContext(),"CurrentApnName",alertDialogInputApnName);
+                break;
+
+            case "MoveAlarm":
+                voiceCommand("Setting activated successfully");
+                Utils.setStringToStorage(getApplicationContext(),"CurrentMoveAlarm",alertDialogMoveAlarmInputSpeed);
+                break;
+
+            case "PowerCutAlarmOn":
+                voiceCommand("Setting activated successfully");
+                Utils.setStringToStorage(getApplicationContext(),"CurrentPowerCutStatus","on");
+                powerCutStatusTextView.setText("Current power cut status is:- "+Utils.getStringFromStorage(getApplicationContext(),"CurrentPowerCutStatus"));
+                break;
+
+            case "PowerCutAlarmOff":
+                voiceCommand("Setting activated successfully");
+                Utils.setStringToStorage(getApplicationContext(),"CurrentPowerCutStatus","off");
+                powerCutStatusTextView.setText("Current power cut status is:- "+Utils.getStringFromStorage(getApplicationContext(),"CurrentPowerCutStatus"));
+                break;
+
+            case "SetExtraAdmin":
+                voiceCommand("Setting activated successfully");
+                Utils.setStringToStorage(getApplicationContext(),"CurrentSetExtraAdmin",alertDialogExtraAdminInputValue);
+                break;
+
+            case "RemoveExtraAdmin":
+                voiceCommand("Extra admin removed successfully");
+                Utils.setStringToStorage(getApplicationContext(),"CurrentSetExtraAdmin"," ");
+                break;
+
+            case "FormatDevice":
+                voiceCommand("Setting formatted successfully");
                 break;
         }
     }
