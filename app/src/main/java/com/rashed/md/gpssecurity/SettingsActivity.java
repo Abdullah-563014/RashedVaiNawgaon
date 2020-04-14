@@ -126,8 +126,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     private void startBackgroundAnimation(){
         AnimationDrawable animationDrawable = (AnimationDrawable) rootLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(1500);
-        animationDrawable.setExitFadeDuration(3500);
+        animationDrawable.setEnterFadeDuration(500);
+        animationDrawable.setExitFadeDuration(1500);
         animationDrawable.start();
     }
 

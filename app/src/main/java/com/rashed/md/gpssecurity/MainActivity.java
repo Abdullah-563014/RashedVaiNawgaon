@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void startBackgroundAnimation(){
         AnimationDrawable animationDrawable = (AnimationDrawable) rootLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(1500);
-        animationDrawable.setExitFadeDuration(3500);
+        animationDrawable.setEnterFadeDuration(500);
+        animationDrawable.setExitFadeDuration(1500);
         animationDrawable.start();
     }
 
