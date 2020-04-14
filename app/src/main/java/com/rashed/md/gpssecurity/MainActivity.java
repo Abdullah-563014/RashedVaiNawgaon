@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         updateLastButtonStatus();
 
-        startBackgroundAnimation();
+//        startBackgroundAnimation();
 
 
 //-----------------------onCreate method end-------------------------------
@@ -348,12 +348,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         voiceCommand(alertTextMessage,"ok, trying to turn on call mode","alertSmsButtonId");
                     }
 
-                    else if (value.contains("bike on") || value.contains("mike on")) {
-                        voiceCommand(onTextMessage,"ok, trying to turn on your bike","onSmsButtonId");
+                    else if (value.contains("bike on") || value.contains("mike on") || value.contains("mic on") || value.contains("bike unlock") || value.contains("mike unlock") || value.contains("mic unlock")) {
+                        voiceCommand(onTextMessage,"ok, trying to unlock your bike","onSmsButtonId");
                     }
 
-                    else if (value.contains("bike off") || value.contains("bike of") || value.contains("mike off") || value.contains("mike of")) {
-                        voiceCommand(offTextMessage,"ok, trying to turn off your bike","offSmsButtonId");
+                    else if (value.contains("bike off") || value.contains("mike off") || value.contains("mic off") || value.contains("bike lock") || value.contains("mike lock") || value.contains("mic lock")) {
+                        voiceCommand(offTextMessage,"ok, trying to lock your bike","offSmsButtonId");
                     }
 
 //                    else if (value.contains("bike start")) {

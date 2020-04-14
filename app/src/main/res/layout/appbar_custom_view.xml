@@ -21,7 +21,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/customImageView"
         android:layout_toLeftOf="@+id/rightCustomImageView"
-        android:text="Thanks For using\nRashed's 3rd Eye Bike Security"
+        android:text="Thanks for using Rashed's GPS vehicle security"
         android:textSize="16sp"
         android:layout_toEndOf="@+id/customImageView"
         android:layout_toStartOf="@+id/rightCustomImageView" />
