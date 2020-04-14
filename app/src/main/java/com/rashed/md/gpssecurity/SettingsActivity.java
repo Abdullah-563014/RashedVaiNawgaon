@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,7 +57,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             alertDialogMoveAlarmTextView,
             alertDialogExtraAdminTextView,
             alertDialogRemoveExtraAdminStatusTextView;
-    private String alertDialogInputSpeed,
+    private String phone,
+            alertDialogInputSpeed,
             dialogType,
             alertDialogInputApnName,
             alertDialogMoveAlarmInputSpeed,
@@ -82,6 +84,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        SharedPreferences sharedPreferences=getSharedPreferences("phone",MODE_PRIVATE);
+        phone = sharedPreferences.getString("phone", null);
 
         initAll();
 
@@ -133,8 +137,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     private void sendSms(String smsCommand){
         try {
-            if (Utils.devicePhoneNumber != null) {
-                double num = Double.parseDouble(Utils.devicePhoneNumber);
+            if (phone != null) {
+                double num = Double.parseDouble(phone);
             } else {
                 Toast.makeText(this, "Please set your device phone number", Toast.LENGTH_SHORT).show();
                 return;
@@ -149,7 +153,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         try {
             messageHandleMethod();
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(Utils.devicePhoneNumber, null, command, sentPI, deliveredPI);
+            smsManager.sendTextMessage(phone, null, command, sentPI, deliveredPI);
         } catch (Exception e) {
             Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
         }

@@ -180,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String phone = sharedPreferences.getString("phone", null);
         if (phone != null) {
             phoneNumber = phone;
-            Utils.devicePhoneNumber=phone;
             String subNumb=phoneNumber.substring(phoneNumber.length()-2,phoneNumber.length());
             showPhoneNumberTextView.setText("Last Two Digit Of Number:- "+subNumb);
         }
