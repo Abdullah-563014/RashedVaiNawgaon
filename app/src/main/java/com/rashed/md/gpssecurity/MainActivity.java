@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String offTextMessage = "Off";
     String vibrationSensorOffTextMessage = "Easy";
     String vibrationSensorOnTextMessage = "Alert";
+    String motionAlarmOffTextMessage="126#";
 //    String startTextMessage = "Start";
 //    String carOffTextMessage = "9400000";
 //    String carOnTextMessage = "9410000";
@@ -223,28 +224,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.findSmsButtonId:
-                sendSms(findTextMessage,"findSmsButtonId","location");
+                sendSms(findTextMessage,"findSmsButtonId","bike location");
                 break;
 
             case R.id.statusSmsButtonId:
-                sendSms(statusTextMessage,"statusSmsButtonId","status");
+                sendSms(statusTextMessage,"statusSmsButtonId","bike status");
                 break;
 
 
             case R.id.alertSmsButtonId:
-                sendSms(alertTextMessage,"alertSmsButtonId","call mode on");
+                sendSms(alertTextMessage,"alertSmsButtonId","bike's call mode on");
                 break;
 
             case R.id.easySmsButtonId:
-                sendSms(easyTextMessage,"easySmsButtonId","call mode off");
+                sendSms(easyTextMessage,"easySmsButtonId","bike's call mode off");
                 break;
 
             case R.id.onSmsButtonId:
-                sendSms(onTextMessage,"onSmsButtonId","unlock");
+                sendSms(onTextMessage,"onSmsButtonId","bike unlock");
                 break;
 
             case R.id.offSmsButtonId:
-                sendSms(offTextMessage,"offSmsButtonId","lock");
+                sendSms(offTextMessage,"offSmsButtonId","bike lock");
                 break;
 
 //            case R.id.startSmsButtonId:
@@ -252,11 +253,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                break;
 
             case R.id.vibSendorOffSmsButtonId:
-                sendSms(vibrationSensorOffTextMessage,"vibSendorOffSmsButtonId","vibration sensor off");
+                sendSms(vibrationSensorOffTextMessage,"vibSendorOffSmsButtonId","bike's vibration sensor off");
                 break;
 
             case R.id.vibSensorOnSmsButtonId:
-                sendSms(vibrationSensorOnTextMessage,"vibSensorOnSmsButtonId","vibration sensor on");
+                sendSms(vibrationSensorOnTextMessage,"vibSensorOnSmsButtonId","bike's vibration sensor on");
+                sendSms(motionAlarmOffTextMessage,"vibSensorOnSmsButtonId",null);
                 break;
 
             case R.id.settingsButtonId:
@@ -363,6 +365,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if (value.contains("vibration on")) {
                         voiceCommand(vibrationSensorOnTextMessage,"ok, trying to turn on vibration sensor","vibSensorOnSmsButtonId");
+                        voiceCommand(motionAlarmOffTextMessage,null,"vibSensorOnSmsButtonId");
                     }
 
 
