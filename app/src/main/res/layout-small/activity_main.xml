@@ -72,46 +72,9 @@
                         android:paddingRight="4dp"
                         android:text="Status" />
                     <ImageButton
-                        android:id="@+id/alertSmsButtonId"
-                        android:layout_width="50dp"
-                        android:layout_margin="5dp"
-                        android:layout_gravity="center"
-                        android:textSize="10sp"
-                        android:src="@drawable/ic_call_mode_one"
-                        android:background="@drawable/green_and_white_border_button"
-                        android:textColor="@color/buttonTextColor"
-                        android:layout_height="50dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:text="Vib Sensor On" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <ImageButton
-                        android:id="@+id/easySmsButtonId"
-                        android:layout_width="50dp"
-                        android:layout_margin="5dp"
-                        android:textSize="10sp"
-                        android:src="@drawable/ic_call_mode_off"
-                        android:background="@drawable/green_and_white_border_button"
-                        android:textColor="@color/buttonTextColor"
-                        android:layout_height="50dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:layout_gravity="center"
-                        android:text="Vib Sensor Off" />
-                    <ImageButton
                         android:id="@+id/offSmsButtonId"
                         android:layout_width="50dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_margin="5dp"
                         android:textSize="10sp"
                         android:src="@drawable/ic_lock"
                         android:background="@drawable/green_and_white_border_button"
@@ -121,6 +84,15 @@
                         android:paddingRight="4dp"
                         android:layout_gravity="center"
                         android:text="Bike Lock" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
                     <ImageButton
                         android:id="@+id/onSmsButtonId"
                         android:layout_width="50dp"
@@ -134,32 +106,6 @@
                         android:paddingRight="4dp"
                         android:layout_gravity="center"
                         android:text="Bike Unlock" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <!--<ImageButton-->
-                        <!--android:id="@+id/startSmsButtonId"-->
-                        <!--android:layout_width="50dp"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:background="@drawable/green_and_white_border_button"-->
-                        <!--android:textColor="@color/buttonTextColor"-->
-                        <!--android:layout_height="50dp"-->
-                        <!--android:paddingLeft="4dp"-->
-                        <!--android:paddingRight="4dp"-->
-                        <!--android:src="@drawable/ic_bike_start"-->
-                        <!--android:textSize="10sp"-->
-                        <!--android:layout_gravity="center_vertical"-->
-                        <!--android:text="Bike Start" />-->
-
                     <ImageButton
                         android:id="@+id/vibSendorOffSmsButtonId"
                         android:layout_width="50dp"
@@ -188,7 +134,16 @@
                         android:paddingRight="4dp"
                         android:layout_gravity="center_vertical"
                         android:text="Vibration on" />
-
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
                     <ImageButton
                         android:id="@+id/settingsButtonId"
                         android:layout_width="50dp"
@@ -202,86 +157,61 @@
                         android:paddingRight="4dp"
                         android:layout_gravity="center_vertical"
                         android:text="Settings" />
-
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:layout_height="50dp"/>
+                    <Button
+                        android:id="@+id/openWebsiteButtonId"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="20dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/simple_button_bg"
+                        android:textColor="@color/buttonTextColor"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:text="Live Track"/>
                 </LinearLayout>
             </LinearLayout>
-
-            //----------------------------sms function end-------------------------------
-
-
-
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical">
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="CALL FUNCTION"-->
-                    <!--android:textSize="25sp"-->
-                    <!--android:textColor="#000000"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:textAlignment="center"-->
-                    <!--android:textStyle="bold"/>-->
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:gravity="center"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:weightSum="2">-->
-
-                    <!--<ImageButton-->
-                        <!--android:id="@+id/lockCallButtonId"-->
-                        <!--android:layout_width="50dp"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:textSize="10sp"-->
-                        <!--android:src="@drawable/ic_lock"-->
-                        <!--android:background="@drawable/green_and_white_border_button"-->
-                        <!--android:textColor="@color/buttonTextColor"-->
-                        <!--android:layout_height="50dp"-->
-                        <!--android:paddingLeft="4dp"-->
-                        <!--android:paddingRight="4dp"-->
-                        <!--android:text="Lock" />-->
-
-                    <!--<ImageButton-->
-                        <!--android:id="@+id/unLockCallButtonId"-->
-                        <!--android:layout_width="50dp"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:textSize="10sp"-->
-                        <!--android:src="@drawable/ic_lock_open"-->
-                        <!--android:background="@drawable/green_and_white_border_button"-->
-                        <!--android:textColor="@color/buttonTextColor"-->
-                        <!--android:layout_height="50dp"-->
-                        <!--android:paddingLeft="4dp"-->
-                        <!--android:paddingRight="4dp"-->
-                        <!--android:text="Unlock" />-->
-
-                <!--</LinearLayout>-->
-
-
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:weightSum="2"
+                android:padding="5dp"
+                android:layout_height="wrap_content">
                 <Button
-                    android:id="@+id/openWebsiteButtonId"
-                    android:layout_width="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:paddingRight="20dp"
-                    android:paddingLeft="20dp"
+                    android:id="@+id/autoLockOnButtonId"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/simple_button_bg"
                     android:textColor="@color/buttonTextColor"
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
-                    android:text="Live Track"/>
+                    android:text="Auto Lock On"/>
+                <Button
+                    android:id="@+id/autoLockOffButtonId"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/simple_button_bg"
+                    android:textColor="@color/buttonTextColor"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text="Auto Lock Off"/>
             </LinearLayout>
-            //----------------------------Call functions end----------------------------
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"

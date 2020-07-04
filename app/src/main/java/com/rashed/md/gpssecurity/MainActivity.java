@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,11 +43,11 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Toolbar toolbar;
-    Button setPhoneNumberButton;
+    Button setPhoneNumberButton,autoLockOnButton,autoLockOffButton;
     ImageButton sendFindSmsButton,
             sendStatusSmsButton,
-            sendAlertSmsButton,
-            sendEasySmsButton,
+//            sendAlertSmsButton,
+//            sendEasySmsButton,
             sendOnSmsButton,
             sendOffSmsButton,
             sendVibrationSensorOffSmsButton,
@@ -62,25 +63,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static String phoneNumber = null;
     String findTextMessage = "Find";
     String statusTextMessage = "Status";
-    String alertTextMessage = "Accon";
-    String easyTextMessage = "Accoff";
+//    String alertTextMessage = "Accon";
+//    String easyTextMessage = "Accoff";
     String onTextMessage = "On";
     String offTextMessage = "Off";
     String vibrationSensorOffTextMessage = "Easy";
     String vibrationSensorOnTextMessage = "Alert";
-    String motionAlarmOffTextMessage="126#";
+    String autoLockOnTextMessage = "Klock,123456,";
+    String autoLockOffTextMessage = "Kulock";
+//    String motionAlarmOffTextMessage="126#";
 //    String startTextMessage = "Start";
 //    String carOffTextMessage = "9400000";
 //    String carOnTextMessage = "9410000";
     SharedPreferences sharedPreferences, phoneNumberValueSharedPreference;
     PendingIntent sentPI, deliveredPI;
     BroadcastReceiver sentBroadcastReceiver, deliveredBroadcastReceiver;
-    TextView showPhoneNumberTextView;
+    TextView showPhoneNumberTextView,targetMinuteStatusTextView;
     Button contactCall, contactFacebook;
-    String lastButtonId;
+    String lastButtonId,targetMinute;
     TextToSpeech textToSpeech;
     boolean voiceSendSms=false;
     private LinearLayout rootLayout;
+    private AlertDialog targetMinuteAlertDialog;
+    private EditText targetMinuteEditText;
 
 
     @Override
@@ -115,12 +120,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void initAll(){
+    private void initAll() {
         setPhoneNumberButton = findViewById(R.id.deviceNumberButtonId);
         sendFindSmsButton = findViewById(R.id.findSmsButtonId);
         sendStatusSmsButton = findViewById(R.id.statusSmsButtonId);
-        sendAlertSmsButton = findViewById(R.id.alertSmsButtonId);
-        sendEasySmsButton = findViewById(R.id.easySmsButtonId);
         sendOnSmsButton = findViewById(R.id.onSmsButtonId);
         sendOffSmsButton = findViewById(R.id.offSmsButtonId);
         sendVibrationSensorOffSmsButton = findViewById(R.id.vibSendorOffSmsButtonId);
@@ -131,14 +134,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contactFacebook = findViewById(R.id.facebookButtonId);
         voiceCommandButon=findViewById(R.id.voiceCommandButtonId);
         liveTrackButton=findViewById(R.id.openWebsiteButtonId);
+        autoLockOnButton=findViewById(R.id.autoLockOnButtonId);
+        autoLockOffButton=findViewById(R.id.autoLockOffButtonId);
         rootLayout=findViewById(R.id.mainActivityRootLayoutId);
 
 
         setPhoneNumberButton.setOnClickListener(this);
         sendFindSmsButton.setOnClickListener(this);
         sendStatusSmsButton.setOnClickListener(this);
-        sendAlertSmsButton.setOnClickListener(this);
-        sendEasySmsButton.setOnClickListener(this);
         sendOnSmsButton.setOnClickListener(this);
         sendOffSmsButton.setOnClickListener(this);
         sendVibrationSensorOffSmsButton.setOnClickListener(this);
@@ -148,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contactCall.setOnClickListener(this);
         contactFacebook.setOnClickListener(this);
         liveTrackButton.setOnClickListener(this);
+        autoLockOnButton.setOnClickListener(this);
+        autoLockOffButton.setOnClickListener(this);
     }
 
     private void startBackgroundAnimation(){
@@ -201,6 +206,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void showTargetMinuteAlertDialog() {
+        View view=getLayoutInflater().inflate(R.layout.custom_layout_for_target_time,null,false);
+        Button submitButton=view.findViewById(R.id.alertDialogTargetMinuteButtonId);
+        targetMinuteEditText=view.findViewById(R.id.alertDialogTargetMinuteEditTextId);
+        targetMinuteStatusTextView=view.findViewById(R.id.alertDialogTargetMinuteTextViewId);
+        submitButton.setOnClickListener(this);
+
+        targetMinuteStatusTextView.setText("Current Target Minute For Auto Lock:- "+Utils.getStringFromStorage(MainActivity.this,"TargetMinuteKey"));
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setCancelable(true);
+        builder.setView(view);
+        targetMinuteAlertDialog=builder.create();
+        if (targetMinuteAlertDialog.getWindow()!=null){
+            targetMinuteAlertDialog.getWindow().getAttributes().windowAnimations=R.style.DialogTheme;
+        }
+        if (!isFinishing()){
+            targetMinuteAlertDialog.show();
+        }
+    }
+
+    private void startTargetMinuteSmsOperation() {
+        targetMinute=targetMinuteEditText.getText().toString();
+        if (!TextUtils.isEmpty(targetMinute)){
+            Utils.setStringToStorage(MainActivity.this,"TargetMinuteKey",targetMinute);
+            sendSms(autoLockOnTextMessage+targetMinute,null,"bike's auto lock turn on");
+            targetMinuteAlertDialog.dismiss();
+        }else {
+            Toast.makeText(this, "Please input your target minute.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onClick(View view) {
 
@@ -231,15 +268,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sendSms(statusTextMessage,"statusSmsButtonId","bike status");
                 break;
 
-
-            case R.id.alertSmsButtonId:
-                sendSms(alertTextMessage,"alertSmsButtonId","bike's call mode on");
-                break;
-
-            case R.id.easySmsButtonId:
-                sendSms(easyTextMessage,"easySmsButtonId","bike's call mode off");
-                break;
-
             case R.id.onSmsButtonId:
                 sendSms(onTextMessage,"onSmsButtonId","bike unlock");
                 break;
@@ -258,12 +286,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.vibSensorOnSmsButtonId:
                 sendSms(vibrationSensorOnTextMessage,"vibSensorOnSmsButtonId","bike's vibration sensor on");
-                sendSms(motionAlarmOffTextMessage,"vibSensorOnSmsButtonId",null);
+//                sendSms(motionAlarmOffTextMessage,"vibSensorOnSmsButtonId",null);
                 break;
 
             case R.id.settingsButtonId:
                 vibrateCreation();
                 startActivity(new Intent(MainActivity.this,SettingsActivity.class));
+                break;
+
+            case R.id.autoLockOnButtonId:
+                vibrateCreation();
+                showTargetMinuteAlertDialog();
+                break;
+
+            case R.id.alertDialogTargetMinuteButtonId:
+                startTargetMinuteSmsOperation();
+                break;
+
+            case R.id.autoLockOffButtonId:
+                vibrateCreation();
+                sendSms(autoLockOffTextMessage,null,"bike's auto lock turn off");
                 break;
 
 //            case R.id.lockCallButtonId:
@@ -342,13 +384,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         voiceCommand(statusTextMessage,"ok, trying to retrieve your bike status","statusSmsButtonId");
                     }
 
-                    else if (value.contains("call of") || value.contains("call off")) {
-                        voiceCommand(easyTextMessage,"ok, trying to turn off call mode","easySmsButtonId");
-                    }
-
-                    else if (value.contains("call on") || value.contains("call 1")) {
-                        voiceCommand(alertTextMessage,"ok, trying to turn on call mode","alertSmsButtonId");
-                    }
+//                    else if (value.contains("call of") || value.contains("call off")) {
+//                        voiceCommand(easyTextMessage,"ok, trying to turn off call mode","easySmsButtonId");
+//                    }
+//
+//                    else if (value.contains("call on") || value.contains("call 1")) {
+//                        voiceCommand(alertTextMessage,"ok, trying to turn on call mode","alertSmsButtonId");
+//                    }
 
                     else if (value.contains("bike on") || value.contains("mike on") || value.contains("mic on") || value.contains("bike unlock") || value.contains("mike unlock") || value.contains("mic unlock")) {
                         voiceCommand(onTextMessage,"ok, trying to unlock your bike","onSmsButtonId");
@@ -365,7 +407,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if (value.contains("vibration on")) {
                         voiceCommand(vibrationSensorOnTextMessage,"ok, trying to turn on vibration sensor","vibSensorOnSmsButtonId");
-                        voiceCommand(motionAlarmOffTextMessage,null,"vibSensorOnSmsButtonId");
+//                        voiceCommand(motionAlarmOffTextMessage,null,"vibSensorOnSmsButtonId");
                     }
 
 
@@ -579,8 +621,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ImageButton button = ((ImageButton) findViewById(resID));
             sendFindSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
             sendStatusSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
-            sendAlertSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
-            sendEasySmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
             sendOnSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
             sendOffSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
 //            sendStartSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
