@@ -44,7 +44,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Toolbar toolbar;
-    Button setPhoneNumberButton,autoLockOnButton,autoLockOffButton,voiceCommandButton,vehicleInfoButton;
+    Button setPhoneNumberButton,autoLockOnButton,autoLockOffButton,voiceCommandButton,vehicleInfoButton,liveTrackButton;
     ImageButton sendFindSmsButton,
             sendStatusSmsButton,
 //            sendAlertSmsButton,
@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contactFacebook = findViewById(R.id.facebookButtonId);
         voiceCommandButton=findViewById(R.id.voiceCommandButtonId);
         vehicleInfoButton=findViewById(R.id.vehicleInfoButtonId);
+        liveTrackButton=findViewById(R.id.liveTrackButtonId);
         autoLockOnButton=findViewById(R.id.autoLockOnButtonId);
         autoLockOffButton=findViewById(R.id.autoLockOffButtonId);
         rootLayout=findViewById(R.id.mainActivityRootLayoutId);
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contactCall.setOnClickListener(this);
         contactFacebook.setOnClickListener(this);
         vehicleInfoButton.setOnClickListener(this);
+        liveTrackButton.setOnClickListener(this);
         autoLockOnButton.setOnClickListener(this);
         autoLockOffButton.setOnClickListener(this);
     }
@@ -345,11 +347,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.liveTrackButtonId:
-                openUrl("http://yq.18gps.net/?locale=en&back=true");
+                openTrackingApp();
                 break;
 
             case R.id.vehicleInfoButtonId:
-                openTrackingApp();
+                openUrl("http://yq.18gps.net/?locale=en&back=true");
                 break;
 
             case R.id.voiceCommandButtonId:
