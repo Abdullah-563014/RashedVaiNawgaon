@@ -344,6 +344,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 openUrl("https://www.facebook.com/rashedul.bari.7");
                 break;
 
+            case R.id.liveTrackButtonId:
+                openUrl("http://yq.18gps.net/?locale=en&back=true");
+                break;
+
             case R.id.vehicleInfoButtonId:
                 openTrackingApp();
                 break;
