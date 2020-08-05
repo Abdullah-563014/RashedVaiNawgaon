@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -43,7 +44,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Toolbar toolbar;
-    Button setPhoneNumberButton,autoLockOnButton,autoLockOffButton;
+    Button setPhoneNumberButton,autoLockOnButton,autoLockOffButton,voiceCommandButton,vehicleInfoButton;
     ImageButton sendFindSmsButton,
             sendStatusSmsButton,
 //            sendAlertSmsButton,
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            sendCarOnSmsButton;
 //            lockCallButton,
 //            unlockCallButton;
-    Button voiceCommandButon,liveTrackButton;
     Intent intent;
     public static String phoneNumber = null;
     String findTextMessage = "Find";
@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showPhoneNumberTextView = findViewById(R.id.showPhoneNumberTextViewId);
         contactCall = findViewById(R.id.contactUsButtonId);
         contactFacebook = findViewById(R.id.facebookButtonId);
-        voiceCommandButon=findViewById(R.id.voiceCommandButtonId);
-        liveTrackButton=findViewById(R.id.openWebsiteButtonId);
+        voiceCommandButton=findViewById(R.id.voiceCommandButtonId);
+        vehicleInfoButton=findViewById(R.id.vehicleInfoButtonId);
         autoLockOnButton=findViewById(R.id.autoLockOnButtonId);
         autoLockOffButton=findViewById(R.id.autoLockOffButtonId);
         rootLayout=findViewById(R.id.mainActivityRootLayoutId);
@@ -147,10 +147,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendVibrationSensorOffSmsButton.setOnClickListener(this);
         sendVibrationSensorOnSmsButton.setOnClickListener(this);
         settingsButton.setOnClickListener(this);
-        voiceCommandButon.setOnClickListener(this);
+        voiceCommandButton.setOnClickListener(this);
         contactCall.setOnClickListener(this);
         contactFacebook.setOnClickListener(this);
-        liveTrackButton.setOnClickListener(this);
+        vehicleInfoButton.setOnClickListener(this);
         autoLockOnButton.setOnClickListener(this);
         autoLockOffButton.setOnClickListener(this);
     }
@@ -235,6 +235,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             targetMinuteAlertDialog.dismiss();
         }else {
             Toast.makeText(this, "Please input your target minute.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openTrackingApp() {
+        try {
+            PackageManager pm = getPackageManager();
+            PackageInfo info=pm.getPackageInfo("com.desn.ffb.jdtracker", PackageManager.GET_ACTIVITIES);
+            Intent intent=pm.getLaunchIntentForPackage("com.desn.ffb.jdtracker");
+            if (intent!=null){
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }else {
+                Toast.makeText(this, "intent is null", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(MainActivity.this, "Tracking app not installed in your phone", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.desn.ffb.jdtracker"));
+            startActivity(intent);
         }
     }
 
@@ -324,8 +344,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 openUrl("https://www.facebook.com/rashedul.bari.7");
                 break;
 
-            case R.id.openWebsiteButtonId:
-                openUrl("http://yq.18gps.net/Skins/YiXinNuo/?locale=en&back=true");
+            case R.id.vehicleInfoButtonId:
+                openTrackingApp();
                 break;
 
             case R.id.voiceCommandButtonId:
