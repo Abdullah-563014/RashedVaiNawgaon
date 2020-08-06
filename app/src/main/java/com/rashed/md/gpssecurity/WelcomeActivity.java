@@ -36,7 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
         public void run() {
             runOnUiThread(new MyRunnable());
             try {
-                Thread.sleep(4000);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
