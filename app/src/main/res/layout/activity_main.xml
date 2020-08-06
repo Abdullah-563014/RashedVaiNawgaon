@@ -157,9 +157,8 @@
                         android:textColor="@color/buttonTextColor"
                         android:layout_gravity="center"
                         android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textAllCaps="false"
-                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:layout_height="50dp"
                         android:text="Live Track"/>
                     <ImageButton
                         android:id="@+id/settingsButtonId"
@@ -184,9 +183,8 @@
                         android:textColor="@color/buttonTextColor"
                         android:layout_gravity="center"
                         android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textAllCaps="false"
-                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:layout_height="50dp"
                         android:text="Vehicle Info"/>
                 </LinearLayout>
             </LinearLayout>
